@@ -1,4 +1,4 @@
-name: CI/CD Pipeline - Production
+name: CI/CD Pipeline for firebase Deployment - Production
 
 on:
   push:
