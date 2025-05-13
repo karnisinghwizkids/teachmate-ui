@@ -202,6 +202,8 @@ jobs:
         with:
           target: 'https://studentmate-2b859.web.app'
           docker_name: 'zaproxy/zap-stable'
+          token: ${{ secrets.ZAP_GITHUB_TOKEN }}
+          fail_action: false
 
   gitleaks-scan:
     name: Run Gitleaks Secrets Scan
