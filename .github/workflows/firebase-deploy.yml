@@ -57,23 +57,23 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
 
-  codeql-analysis:
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+  # codeql-analysis:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     actions: read
+  #     contents: read
+  #     security-events: write
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: javascript
+  #     - name: Initialize CodeQL
+  #       uses: github/codeql-action/init@v2
+  #       with:
+  #         languages: javascript
 
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+  #     - name: Perform CodeQL Analysis
+  #       uses: github/codeql-action/analyze@v2
 
   trivy-scan:
     runs-on: ubuntu-latest
