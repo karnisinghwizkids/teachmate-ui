@@ -211,11 +211,11 @@ jobs:
       - name: Run Trivy Vulnerability and Secrets Scan
        # run: trivy fs . --scanners vuln,secret --severity HIGH,CRITICAL --exit-code 1
         run: |
-        trivy fs . \
-          --security-checks vuln,secret \
-          --severity HIGH,CRITICAL \
-          --exit-code 1 \
-          --no-progress
+          trivy fs . \
+            --security-checks vuln,secret \
+            --severity HIGH,CRITICAL \
+            --exit-code 1 \
+            --no-progress
 
 
   zap-scan:
