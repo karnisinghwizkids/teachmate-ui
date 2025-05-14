@@ -62,7 +62,7 @@ jobs:
         #run: firebase deploy --only hosting --project ${{ secrets.FIREBASE_PROJECT_ID_PROD }} --non-interactive
         run: |
           firebase deploy \
-            --only hosting:teachmate-ui \
+            --only hosting:teachmate-ui-dev \
             --project ${{ secrets.FIREBASE_PROJECT_ID_PROD }} \
             --non-interactive
         env:
