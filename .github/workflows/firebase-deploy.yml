@@ -205,8 +205,8 @@ jobs:
 
       - name: Install Trivy CLI v0.30.0
         run: |
-        wget https://github.com/aquasecurity/trivy/releases/download/v0.30.0/trivy_0.30.0_Linux-64bit.deb
-        sudo dpkg -i trivy_0.30.0_Linux-64bit.deb
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.30.0/trivy_0.30.0_Linux-64bit.deb
+          sudo dpkg -i trivy_0.30.0_Linux-64bit.deb
 
       - name: Run Trivy Vulnerability and Secrets Scan
         run: trivy fs . --scanners vuln,secret --severity HIGH,CRITICAL --exit-code 1
