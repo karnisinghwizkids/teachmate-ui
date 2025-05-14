@@ -1,6 +1,6 @@
 {
   "hosting": {
-     "target": "teachmate-ui",
+     "target": "teachmate-ui-dev",
     "public": "dist",
     "ignore": [
       "firebase.json",
