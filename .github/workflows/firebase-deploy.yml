@@ -181,21 +181,36 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
 
-  trivy-scan:
-    name: Run Trivy Security Scan
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+  # trivy-scan:
+  #   name: Run Trivy Security Scan
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
 
-      - name: Run Trivy Vulnerability Scanner
-        uses: aquasecurity/trivy-action@v0.30.0
-        with:
-          scan-type: fs
-          scan-ref: .
-          scanners: "vuln,secret"
-          exit-code: '1'
-          severity: 'HIGH,CRITICAL'
+  #     - name: Run Trivy Vulnerability Scanner
+  #       uses: aquasecurity/trivy-action@v0.11.2
+  #       with:
+  #         scan-type: fs
+  #         scan-ref: .
+  #         scanners: "vuln,secret"
+  #         exit-code: '1'
+  #         severity: 'HIGH,CRITICAL'
+
+trivy-scan:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Trivy CLI v0.30.0
+      run: |
+        wget https://github.com/aquasecurity/trivy/releases/download/v0.30.0/trivy_0.30.0_Linux-64bit.deb
+        sudo dpkg -i trivy_0.30.0_Linux-64bit.deb
+
+    - name: Run Trivy Vulnerability and Secrets Scan
+      run: trivy fs . --scanners vuln,secret --severity HIGH,CRITICAL --exit-code 1
+
 
   zap-scan:
     name: Run ZAP Security Scan
