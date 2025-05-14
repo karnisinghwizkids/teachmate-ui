@@ -1,123 +1,4 @@
 
-# name: CI/CD Pipeline for firebase Deployment - Production
-
-# on:
-#   push:
-#     branches: [main]  # Only deploys from main to production
-#   pull_request:
-#     branches: [main]
-
-# permissions:
-#   contents: read
-
-# jobs:
-#   build-and-deploy:
-#     name: Build & Deploy to Production
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v3
-
-#       - name: Set up Node.js
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: '18'
-
-#       - name: Cache node modules
-#         uses: actions/cache@v3
-#         with:
-#           path: ~/.npm
-#           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-#           restore-keys: |
-#             ${{ runner.os }}-node-
-
-#       - name: Install dependencies
-#         run: npm ci
-
-#       # - name: Create .env file with production secrets
-#       #   run: |
-#       #     echo "VITE_GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY_PROD }}" >> .env
-
-#       - name: Build project
-#         run: npm run build
-
-#       - name: Check if build folder exists
-#         run: |
-#           if [ ! -d "dist" ]; then
-#             echo "Error: Build directory 'dist/' does not exist! Deployment failed."
-#             exit 1
-#           fi
-
-#       - name: Install Firebase CLI
-#         run: npm install -g firebase-tools
-
-#       - name: Write Firebase production service account key to file
-#         run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROD }}' > service-account.json
-
-#       - name: Deploy to Firebase (Production)
-#         run: firebase deploy --only hosting --project ${{ secrets.FIREBASE_PROJECT_ID_PROD }} --non-interactive
-#         env:
-#           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
-
-#   # codeql-analysis:
-#   #   runs-on: ubuntu-latest
-#   #   permissions:
-#   #     actions: read
-#   #     contents: read
-#   #     security-events: write
-#   #   steps:
-#   #     - name: Checkout repository
-#   #       uses: actions/checkout@v3
-
-#   #     - name: Initialize CodeQL
-#   #       uses: github/codeql-action/init@v2
-#   #       with:
-#   #         languages: javascript
-
-#   #     - name: Perform CodeQL Analysis
-#   #       uses: github/codeql-action/analyze@v2
-
-#   trivy-scan:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v3
-
-#       - name: Run Trivy Vulnerability Scanner
-#         #uses: aquasecurity/trivy-action@6c175e9
-#         uses: aquasecurity/trivy-action@v0.30.0
-#         #uses: aquasecurity/trivy-action@ff34c6e8c305a859c659850ca37d6097bbd6a1c4
-#         #uses: aquasecurity/trivy-action@v0.11.0
-#         with:
-#           scan-type: fs
-#           scan-ref: .
-#           scanners: "vuln,secret"       # Also scans for hardcoded secrets
-#           exit-code: '1'
-#     severity: 'HIGH,CRITICAL'
-
-#   zap-scan:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Run OWASP ZAP Baseline Scan
-#         uses: zaproxy/action-baseline@v0.4.0
-#         with:
-#           target: 'https://studentmate-2b859.web.app'
-#           docker_name: 'zaproxy/zap-stable'
-
-#   gitleaks-scan:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v3
-#         with:
-#           fetch-depth: 0
-
-#       - name: Run Gitleaks to detect secrets
-#         uses: gitleaks/gitleaks-action@v2
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
-
 
 name: CI/CD Pipeline for Firebase Deployment - Production
 
@@ -181,21 +62,6 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
 
-  # trivy-scan:
-  #   name: Run Trivy Security Scan
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
-
-  #     - name: Run Trivy Vulnerability Scanner
-  #       uses: aquasecurity/trivy-action@v0.11.2
-  #       with:
-  #         scan-type: fs
-  #         scan-ref: .
-  #         scanners: "vuln,secret"
-  #         exit-code: '1'
-  #         severity: 'HIGH,CRITICAL'
 
   trivy-scan:
     runs-on: ubuntu-latest
@@ -209,7 +75,6 @@ jobs:
           sudo dpkg -i trivy_0.30.0_Linux-64bit.deb
 
       - name: Run Trivy Vulnerability and Secrets Scan
-       # run: trivy fs . --scanners vuln,secret --severity HIGH,CRITICAL --exit-code 1
         run: |
           trivy fs . \
             --security-checks vuln,secret \
