@@ -59,7 +59,7 @@ jobs:
 
       - name: Deploy to Firebase (Production)
         run: firebase deploy --only hosting --project ${{ secrets.FIREBASE_PROJECT_ID_PROD }} --non-interactive
-        target: teachmate-ui
+        #target: teachmate-ui
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
 
