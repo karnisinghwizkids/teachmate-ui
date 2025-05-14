@@ -197,14 +197,14 @@ jobs:
   #         exit-code: '1'
   #         severity: 'HIGH,CRITICAL'
 
-trivy-scan:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+  trivy-scan:
+       runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
     - name: Install Trivy CLI v0.30.0
-      run: |
+       run: |
         wget https://github.com/aquasecurity/trivy/releases/download/v0.30.0/trivy_0.30.0_Linux-64bit.deb
         sudo dpkg -i trivy_0.30.0_Linux-64bit.deb
 
