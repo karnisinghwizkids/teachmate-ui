@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "protean-horizon-457804-v7"
+  },
+  "targets": {
+    "protean-horizon-457804-v7": {
+      "hosting": {
+        "teachmate-ui": ["teachmate-ui"]
+      }
+    }
+  }
+}
